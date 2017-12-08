@@ -1,0 +1,95 @@
+Types
+	int     is int64
+	float   is double(64)
+	boolean is int [0 - false, other - true]
+
+Opcodes
+	Name				Arguments										Stack in									Stack out
+
+	push_i	 		(int value) 									in:[] 									out:[int value]
+	push_f 			(float value) 									in:[] 									out:[float value]
+
+	pop 				() 												in:[void value] 						out:[]
+
+	int 				() 												in:[float x] 							out:[int x]
+	float 			() 												in:[int x] 								out:[float x]
+
+	add_i 			() 												in:[int x, int y] 					out:[int (x+y)]
+	add_f 			() 												in:[float x, float y] 				out:[float (x+y)]
+	sub_i 			() 												in:[int x, int y] 					out:[int (x-y)]
+	sub_f 			() 												in:[float x, float y] 				out:[float (x-y)]
+	mul_i 			() 												in:[int x, int y] 					out:[int (x*y)]
+	mul_f 			() 												in:[float x, float y] 				out:[float (x*y)]
+	div_i 			() 												in:[int x, int y] 					out:[int (x/y)]
+	div_f 			() 												in:[float x, float y] 				out:[float (x/y)]
+	mod_i 			() 												in:[int x, int y] 					out:[int (x%y)]
+	mod_f 			() 												in:[float x, float y] 				out:[float (x%y)]
+	
+	not_i 			() 												in:[int x] 								out:[int (!x)]
+	and_i 			() 												in:[int x, int y] 					out:[int (x & y)]
+	xor_i 			() 												in:[int x, int y]				 		out:[int (x ^ y)]
+	or_i 				() 												in:[int x, int y] 					out:[int (x | y)]
+	
+	not_b 			() 												in:[boolean x] 						out:[boolean (!x)]
+	and_b 			() 												in:[boolean x, boolean y] 			out:[boolean (x & y)]
+	or_b 				() 												in:[boolean x, boolean y] 			out:[boolean (x | y)]
+
+
+	stack_copy 		(int deltaPosition) 							in:[] 									out:[void value]
+
+	less_then_i 	(int address) 									in:[int x, int y] 					out: [boolean (x < y)]
+	less_then_f 	(int address) 									in:[float x, float y] 				out: [boolean (x < y)]
+	grater_then_i 	(int x, int y) 								in:[int x, int y] 					out: [boolean (x > y)]
+	grater_then_f 	(float x, float y) 							in:[float x, float y] 				out: [boolean (x > y)]
+	equal_i 			(int x, int y) 								in:[int x, int y] 					out: [boolean (x == y)]
+	equal_f 			(float x, float y) 							in:[float x, float y] 				out: [boolean (x == y)]
+
+	print_i 			() 												in:[int value] 						out:[]
+	print_f 			() 												in:[float value] 						out:[]
+	print_s 			() 												in:[int pointer] 						out:[]
+	
+	mem_alloc 		()			 										in:[int size] 							out:[int pointer]
+	mem_free 		() 												in:[int pointer]						out:[]
+	mem_set 			() 												in:[int pointer, void value]		out:[]
+	mem_get 			() 												in:[int pointer, void value] 		out:[]
+	
+	call 				(int address, int argumentsCount)	 	in:[void... arguments] 				out:[void returnValue]
+	return			() 												in:[]										out:[]
+
+	halt 				() 												in:[]										out:[]
+	goto 				(int address) 									in:[]										out:[]
+
+Test programs
+
+#main
+push_i 0
+
+	#start_loop
+	push_i 1
+	add_i
+	stack_copy 0
+	push_i 10
+	less_then_i #end_loop
+	
+	
+	stack_copy 0
+	print_i
+
+goto #start_loop
+
+#end_loop
+
+halt
+
+
+int main(){
+	int64 i = 0;
+	while(i < 10){
+		i++;
+		print(i);
+	}
+}
+
+
+
+
